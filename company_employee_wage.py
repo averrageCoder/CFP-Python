@@ -8,6 +8,13 @@ class CompanyEmployeeWage:
     def setTotalEmpWage(self, totalEmpWage):
         self.totalEmpWage = totalEmpWage
 
+    def getTotalWage(self):
+        try:
+            return self.totalEmpWage
+        except Exception as e:
+            print(e.__str__())
+            return 0
+
     def setDailyWageDict(self, dailyWages):
         self.dailyWages = dailyWages
 
