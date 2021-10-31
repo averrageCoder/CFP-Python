@@ -46,39 +46,42 @@ def computeWage(employee):
     total_wage = 0
     total_working_hours = 0
     total_working_days = 0
-    while (total_working_hours <= employee.maxHoursPerMonth and total_working_days < employee.numOfWorkingDays):
+    daily_wages = {}
+    while total_working_hours <= employee.maxHoursPerMonth and total_working_days < employee.numOfWorkingDays:
+        total_working_days += 1
         attendance = random.randint(0, 2)
         if attendance == IS_PRESENT:
             # print("Employee is present")
             total_working_hours += FULL_DAY_HOUR
-            total_working_days += 1
             daily_wage = FULL_DAY_HOUR * employee.empRatePerHour
         # UC3
         elif attendance == IS_PART_TIME:
             # print("Employee is available part time")
             total_working_hours += PART_TIME_HOUR
-            total_working_days += 1
             daily_wage = PART_TIME_HOUR * employee.empRatePerHour
         else:
             # print("Employee is absent!")
             daily_wage = 0
 
+        daily_wages[total_working_days] = daily_wage
         total_wage += daily_wage
 
     print("Total Hours: {} Total Wage : {}".format(total_working_hours, total_wage))
-    return total_wage
+    return total_wage, daily_wages
 
 
 def computeEmpWage(employees):
     for employee in employees:
-        employee.setTotalEmpWage(computeWage(employee))
+        total_wage, daily_wages = computeWage(employee)
+        employee.setTotalEmpWage(total_wage)
+        employee.setDailyWageDict(daily_wages)
         print(employee)
 
 
 if __name__ == "__main__":
     employees = []
-    dmartEmployee = CompanyEmployeeWage("DMart", 20, 2, 10)
-    relianceEmployee = CompanyEmployeeWage("Reliance", 10, 4, 20)
+    dmartEmployee = CompanyEmployeeWage("DMart", 20, 15, 50)
+    relianceEmployee = CompanyEmployeeWage("Reliance", 10, 20, 70)
     employees.append(dmartEmployee)
     employees.append(relianceEmployee)
     computeEmpWage(employees)

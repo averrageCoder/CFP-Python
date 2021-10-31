@@ -6,7 +6,14 @@ class CompanyEmployeeWage:
         self.maxHoursPerMonth = maxHoursPerMonth
 
     def setTotalEmpWage(self, totalEmpWage):
-        self.totalEmpWage = totalEmpWage;
+        self.totalEmpWage = totalEmpWage
+
+    def setDailyWageDict(self, dailyWages):
+        self.dailyWages = dailyWages
 
     def __str__(self):
-        return "Total employee wage for company: "+self.company+" is: "+self.totalEmpWage
+        string = ""
+        for key, value in self.dailyWages.items():
+            string += "\n Day: {} Wage: {}".format(key, value)
+        string += "\n Total employee wage for company: " + str(self.company) + " is: " + str(self.totalEmpWage)
+        return string
