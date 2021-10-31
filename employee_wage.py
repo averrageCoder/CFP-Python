@@ -71,17 +71,34 @@ def computeWage(employee):
 
 
 def computeEmpWage(employees):
+    updated_employees_list = []
     for employee in employees:
         total_wage, daily_wages = computeWage(employee)
         employee.setTotalEmpWage(total_wage)
         employee.setDailyWageDict(daily_wages)
         print(employee)
+        updated_employees_list.append(employee)
+    return updated_employees_list
+
+
+def getTotalWageByCompany(company, employees):
+    company_total_wage = 0
+    for employee in employees:
+        if employee.company == company:
+            company_total_wage += employee.getTotalWage()
+
+    print("Total employee wages for {} is: {}".format(company, company_total_wage))
 
 
 if __name__ == "__main__":
     employees = []
     dmartEmployee = CompanyEmployeeWage("DMart", 20, 15, 50)
-    relianceEmployee = CompanyEmployeeWage("Reliance", 10, 20, 70)
+    relianceEmployee1 = CompanyEmployeeWage("Reliance", 10, 20, 70)
+    relianceEmployee2 = CompanyEmployeeWage("Reliance", 10, 20, 70)
+
     employees.append(dmartEmployee)
-    employees.append(relianceEmployee)
-    computeEmpWage(employees)
+    employees.append(relianceEmployee1)
+    employees.append(relianceEmployee2)
+    employees = computeEmpWage(employees)
+
+    getTotalWageByCompany("Reliance", employees)
