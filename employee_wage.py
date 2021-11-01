@@ -47,18 +47,18 @@ def computeWage(employee):
     total_working_hours = 0
     total_working_days = 0
     daily_wages = {}
-    while total_working_hours <= employee.maxHoursPerMonth and total_working_days < employee.numOfWorkingDays:
+    while total_working_hours <= employee.max_hours_per_month and total_working_days < employee.num_of_working_days:
         total_working_days += 1
         attendance = random.randint(0, 2)
         if attendance == IS_PRESENT:
             # print("Employee is present")
             total_working_hours += FULL_DAY_HOUR
-            daily_wage = FULL_DAY_HOUR * employee.empRatePerHour
+            daily_wage = FULL_DAY_HOUR * employee.emp_rate_per_hour
         # UC3
         elif attendance == IS_PART_TIME:
             # print("Employee is available part time")
             total_working_hours += PART_TIME_HOUR
-            daily_wage = PART_TIME_HOUR * employee.empRatePerHour
+            daily_wage = PART_TIME_HOUR * employee.emp_rate_per_hour
         else:
             # print("Employee is absent!")
             daily_wage = 0
@@ -74,8 +74,8 @@ def computeEmpWage(employees):
     updated_employees_list = []
     for employee in employees:
         total_wage, daily_wages = computeWage(employee)
-        employee.setTotalEmpWage(total_wage)
-        employee.setDailyWageDict(daily_wages)
+        employee.set_total_emp_wage(total_wage)
+        employee.set_daily_wage_dict(daily_wages)
         print(employee)
         updated_employees_list.append(employee)
     return updated_employees_list
@@ -85,20 +85,20 @@ def getTotalWageByCompany(company, employees):
     company_total_wage = 0
     for employee in employees:
         if employee.company == company:
-            company_total_wage += employee.getTotalWage()
+            company_total_wage += employee.get_total_wage()
 
     print("Total employee wages for {} is: {}".format(company, company_total_wage))
 
 
 if __name__ == "__main__":
     employees = []
-    dmartEmployee = CompanyEmployeeWage("DMart", 20, 15, 50)
-    relianceEmployee1 = CompanyEmployeeWage("Reliance", 10, 20, 70)
-    relianceEmployee2 = CompanyEmployeeWage("Reliance", 10, 20, 70)
+    dmart_employee = CompanyEmployeeWage("DMart", 20, 15, 50)
+    reliance_employee1 = CompanyEmployeeWage("Reliance", 10, 20, 70)
+    reliance_employee2 = CompanyEmployeeWage("Reliance", 10, 20, 70)
 
-    employees.append(dmartEmployee)
-    employees.append(relianceEmployee1)
-    employees.append(relianceEmployee2)
+    employees.append(dmart_employee)
+    employees.append(reliance_employee1)
+    employees.append(reliance_employee2)
     employees = computeEmpWage(employees)
 
     getTotalWageByCompany("Reliance", employees)
