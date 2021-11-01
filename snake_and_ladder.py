@@ -16,6 +16,8 @@ while player_position < 100:
     elif option == LADDER_OPTION:
         print("YIPPEE! ITS A LADDER")
         player_position += dice_number
+        if player_position > 100:
+            player_position -= dice_number
     elif option == SNAKE_OPTION:
         print("UH NO! ITS A SNAKE")
         player_position -= dice_number
