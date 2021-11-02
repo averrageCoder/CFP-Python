@@ -16,6 +16,13 @@ def print_addressbook():
         print("Contact {}: {}".format(i+1, contact))
 
 
+def delete_contact(person_to_delete):
+    for i in range(len(address_book)):
+        contact = address_book[i]
+        if contact.first_name == person_to_delete:
+            address_book.remove(contact)
+
+
 if __name__ == "__main__":
     contact1 = Contact("James", "William", "12th Street", "London", "London",
                        "789456", "7894561230", "james@james.com")
@@ -34,4 +41,11 @@ if __name__ == "__main__":
     edit_contact(person_to_edit, updated_contact)
 
     print("After Update!")
+    print_addressbook()
+
+    person_to_delete = "Jimmy"
+
+    delete_contact(person_to_delete)
+
+    print("After Delete!")
     print_addressbook()
