@@ -67,6 +67,24 @@ def write_addressbook_to_json(json_filename):
         json.dump(address_book_dict, fp)
 
 
+def read_addressbook_from_json(json_filename):
+    global address_book
+    address_book = []
+    with open(json_filename) as json_file:
+        data = json.load(json_file)
+    for contact in data["addressbook"]:
+        first_name = contact["first_name"]
+        last_name = contact["last_name"]
+        address = contact["address"]
+        city = contact["city"]
+        state = contact["state"]
+        zip_code = contact["zip_code"]
+        phone = contact["phone"]
+        email = contact["email"]
+        address_book.append(Contact(first_name, last_name, address, city
+                                    ,state, zip_code, phone, email))
+
+
 if __name__ == "__main__":
     contact1 = Contact("James", "William", "12th Street", "London", "London",
                        "789456", "7894561230", "james@james.com")
@@ -120,3 +138,8 @@ if __name__ == "__main__":
     print("Writing addressbook to json")
     json_filename = "addressbook.json"
     write_addressbook_to_json(json_filename)
+
+    print("Reading addressbook from json")
+    read_addressbook_from_json(json_filename)
+    print_addressbook()
+
