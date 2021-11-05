@@ -97,13 +97,13 @@ if __name__ == "__main__":
     print("CITY PERSON MAPPING")
     city_person_mapping = map_city_and_person()
     for key, value in city_person_mapping.items():
-        print("City: {}".format(key))
+        print("City: {}, Person Count: {}".format(key, len(value)))
         for contact in value:
             print(contact)
 
     print("STATE PERSON MAPPING")
     state_person_mapping = map_state_and_person()
     for key, value in city_person_mapping.items():
-        print("State: {}".format(key))
+        print("State: {}, Person Count: {}".format(key, len(value)))
         for contact in value:
             print(contact)
