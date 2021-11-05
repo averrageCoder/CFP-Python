@@ -36,6 +36,28 @@ def search_person_by_city(city_to_search):
             print(contact)
 
 
+def map_city_and_person():
+    city_person_mapping = dict()
+    for i in range(len(address_book)):
+        contact = address_book[i]
+        if contact.city not in city_person_mapping.keys():
+            city_person_mapping[contact.city] = [contact]
+        else:
+            city_person_mapping[contact.city].append(contact)
+    return city_person_mapping
+
+
+def map_state_and_person():
+    state_person_mapping = dict()
+    for i in range(len(address_book)):
+        contact = address_book[i]
+        if contact.city not in state_person_mapping.keys():
+            state_person_mapping[contact.city] = [contact]
+        else:
+            state_person_mapping[contact.city].append(contact)
+    return state_person_mapping
+
+
 if __name__ == "__main__":
     contact1 = Contact("James", "William", "12th Street", "London", "London",
                        "789456", "7894561230", "james@james.com")
@@ -71,3 +93,17 @@ if __name__ == "__main__":
     city_to_search = "Delhi"
     print("Searching city: {}".format(city_to_search))
     search_person_by_city(city_to_search)
+
+    print("CITY PERSON MAPPING")
+    city_person_mapping = map_city_and_person()
+    for key, value in city_person_mapping.items():
+        print("City: {}".format(key))
+        for contact in value:
+            print(contact)
+
+    print("STATE PERSON MAPPING")
+    state_person_mapping = map_state_and_person()
+    for key, value in city_person_mapping.items():
+        print("State: {}".format(key))
+        for contact in value:
+            print(contact)
