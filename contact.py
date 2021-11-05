@@ -25,6 +25,18 @@ class Contact:
         To return a string version of the object
         :return: string will all the object fields
         """
-        return "first_name: {}, last_name: {}, address: {}, city: {}, state: {}, zip_code: {}, phone: {}, email: {} "\
-                .format(self.first_name, self.last_name, self.address, self.city,
-                        self.state, self.zip_code, self.phone, self.email)
+        return "first_name: {}, last_name: {}, address: {}, city: {}, state: {}, zip_code: {}, phone: {}, email: {} " \
+            .format(self.first_name, self.last_name, self.address, self.city,
+                    self.state, self.zip_code, self.phone, self.email)
+
+    def __dict__(self):
+        return {
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "address": self.address,
+            "city": self.city,
+            "state": self.state,
+            "zip_code": self.zip_code,
+            "phone": self.phone,
+            "email": self.email
+        }
