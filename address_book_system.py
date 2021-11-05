@@ -1,5 +1,5 @@
 from contact import Contact
-
+import json
 address_book = []
 
 
@@ -58,6 +58,15 @@ def map_state_and_person():
     return state_person_mapping
 
 
+def write_addressbook_to_json(json_filename):
+    address_book_dict = {"addressbook":[]}
+    for i in range(len(address_book)):
+        contact = address_book[i]
+        address_book_dict["addressbook"].append(contact.__dict__())
+    with open(json_filename, 'w') as fp:
+        json.dump(address_book_dict, fp)
+
+
 if __name__ == "__main__":
     contact1 = Contact("James", "William", "12th Street", "London", "London",
                        "789456", "7894561230", "james@james.com")
@@ -107,3 +116,7 @@ if __name__ == "__main__":
         print("State: {}, Person Count: {}".format(key, len(value)))
         for contact in value:
             print(contact)
+
+    print("Writing addressbook to json")
+    json_filename = "addressbook.json"
+    write_addressbook_to_json(json_filename)
