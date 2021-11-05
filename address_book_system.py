@@ -23,6 +23,19 @@ def delete_contact(person_to_delete):
             address_book.remove(contact)
 
 
+def search_person_by_state(state_to_search):
+    for i in range(len(address_book)):
+        contact = address_book[i]
+        if contact.state == state_to_search:
+            print(contact)
+
+def search_person_by_city(city_to_search):
+    for i in range(len(address_book)):
+        contact = address_book[i]
+        if contact.city == city_to_search:
+            print(contact)
+
+
 if __name__ == "__main__":
     contact1 = Contact("James", "William", "12th Street", "London", "London",
                        "789456", "7894561230", "james@james.com")
@@ -49,3 +62,12 @@ if __name__ == "__main__":
 
     print("After Delete!")
     print_addressbook()
+
+    address_book.append(contact2)
+    state_to_search = "London"
+    print("Searching state: {}".format(state_to_search))
+    search_person_by_state(state_to_search)
+
+    city_to_search = "Delhi"
+    print("Searching city: {}".format(city_to_search))
+    search_person_by_city(city_to_search)
