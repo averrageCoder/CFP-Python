@@ -4,20 +4,35 @@ import json
 address_book = []
 
 
-class AddressBook():
+class AddressBook:
     def __init__(self):
         self.address_book = []
 
     def add_contact(self, contact):
+        """
+        add contact to class variable
+        :param contact: contact to be added
+        :return: none
+        """
         self.address_book.append(contact)
 
     def edit_contact(self, person_to_edit, updated_contact):
+        """
+        ability to edit contact in addressbook using person firstname
+        :param person_to_edit: first name of the person to be edited
+        :param updated_contact: updated contact that needs to replaced
+        :return: none
+        """
         for i in range(len(self.address_book)):
             contact = self.address_book[i]
             if contact.first_name == person_to_edit:
                 self.address_book[i] = updated_contact
 
     def __str__(self):
+        """
+        method to return object as string
+        :return: object as string
+        """
         string = ''
         for i in range(len(self.address_book)):
             contact = self.address_book[i]
@@ -25,24 +40,43 @@ class AddressBook():
         return string
 
     def delete_contact(self, person_to_delete):
+        """
+        ability to delete contact from addressbook
+        :param person_to_delete: name of the person that needs to be deleted
+        :return: none
+        """
         for i in range(len(self.address_book)):
             contact = self.address_book[i]
             if contact.first_name == person_to_delete:
                 self.address_book.remove(contact)
 
     def search_person_by_state(self, state_to_search):
+        """
+        prints contact that matches the state
+        :param state_to_search: state name to search by
+        :return:
+        """
         for i in range(len(self.address_book)):
             contact = self.address_book[i]
             if contact.state == state_to_search:
                 print(contact)
 
     def search_person_by_city(self, city_to_search):
+        """
+        prints contact that matches the city
+        :param city_to_search: city name to search by
+        :return:
+        """
         for i in range(len(self.address_book)):
             contact = self.address_book[i]
             if contact.city == city_to_search:
                 print(contact)
 
     def map_city_and_person(self):
+        """
+        to map city and person
+        :return: dictionary with city person mapping
+        """
         city_person_mapping = dict()
         for i in range(len(self.address_book)):
             contact = self.address_book[i]
@@ -53,6 +87,10 @@ class AddressBook():
         return city_person_mapping
 
     def map_state_and_person(self):
+        """
+        to map state and person
+        :return: dictionary with state person mapping
+        """
         state_person_mapping = dict()
         for i in range(len(self.address_book)):
             contact = self.address_book[i]
@@ -63,6 +101,11 @@ class AddressBook():
         return state_person_mapping
 
     def write_addressbook_to_json(self, json_filename):
+        """
+        ability to write addressbook to json
+        :param json_filename: name of the file to be created
+        :return: none
+        """
         address_book_dict = {"addressbook": []}
         for i in range(len(self.address_book)):
             contact = self.address_book[i]
@@ -71,6 +114,11 @@ class AddressBook():
             json.dump(address_book_dict, fp)
 
     def read_addressbook_from_json(self, json_filename):
+        """
+        read addressbook from json file
+        :param json_filename: name of the json file to read from
+        :return: none
+        """
         self.address_book = []
         with open(json_filename) as json_file:
             data = json.load(json_file)
@@ -87,6 +135,10 @@ class AddressBook():
                                              , state, zip_code, phone, email))
 
     def get_total_contacts(self):
+        """
+        to get total contacts in the addressbook
+        :return: total count of contacts
+        """
         return len(self.address_book)
 
 
