@@ -26,5 +26,8 @@ def validate_email(email):
     return test_regex_pattern(pattern, email)
 
 
+def validate_phone(phone):
+    pattern = "^([\\+]?\\d{2})?[\\s]?\\d{10}$"
+    return test_regex_pattern(pattern, phone)
 
 
