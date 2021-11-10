@@ -31,3 +31,7 @@ def validate_phone(phone):
     return test_regex_pattern(pattern, phone)
 
 
+def validate_password(password):
+    pattern = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*#?&])[\\S]{8,}$"
+    return test_regex_pattern(pattern, password)
+
