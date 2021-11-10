@@ -20,3 +20,9 @@ def test_email():
 def test_phone():
     assert not user_registeration.validate_phone("789 456 1232")
     assert user_registeration.validate_phone("+91 9874561230")
+
+def test_password():
+    assert not user_registeration.validate_password("okay1@34")
+    assert not user_registeration.validate_password("Okay1234")
+    assert not user_registeration.validate_password("")
+    assert user_registeration.validate_password("pa2@Word")
