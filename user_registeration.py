@@ -21,5 +21,10 @@ def validate_last_name(last_name):
     return validate_name(last_name)
 
 
+def validate_email(email):
+    pattern = '^[a-z]+([\.\+\_\-][a-z]+)?@[a-z]+.[a-z]+(\.[a-z]{2})?$'
+    return test_regex_pattern(pattern, email)
+
+
 
 
