@@ -1,5 +1,6 @@
 import pytest
 import user_registeration
+from custom_user_registeration_errors import UserRegisterationError
 
 list_of_emails = []
 correct_emails = [
@@ -21,11 +22,15 @@ for email in incorrect_emails:
 
 def test_first_name():
     assert not user_registeration.validate_first_name("harsh")
+    with pytest.raises(UserRegisterationError) as e_info:
+        assert not user_registeration.validate_first_name(None)
     assert user_registeration.validate_first_name("Harsh")
 
 
 def test_last_name():
     assert not user_registeration.validate_last_name("ja")
+    with pytest.raises(UserRegisterationError) as e_info:
+        assert user_registeration.validate_last_name("")
     assert user_registeration.validate_first_name("Jain")
 
 
