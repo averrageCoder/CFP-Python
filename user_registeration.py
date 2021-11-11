@@ -22,7 +22,7 @@ def validate_last_name(last_name):
 
 
 def validate_email(email):
-    pattern = '^[a-z]+([\.\+\_\-][a-z]+)?@[a-z]+.[a-z]+(\.[a-z]{2})?$'
+    pattern = '^abc([.+_-][A-Z0-9]+)?[A-Z0-9]*[@][A-Za-z0-9]+[\\.][A-Za-z]{2,}(.[A-Za-z]{2,6})?$'
     return test_regex_pattern(pattern, email)
 
 
