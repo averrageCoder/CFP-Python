@@ -8,13 +8,19 @@ class AddressBook:
     def __init__(self):
         self.address_book = []
 
-    def add_contact(self, contact):
+    def add_contact(self, new_contact):
         """
         add contact to class variable
         :param contact: contact to be added
         :return: none
         """
-        self.address_book.append(contact)
+        new_first_name = new_contact.first_name
+        for i in range(len(self.address_book)):
+            contact = self.address_book[i]
+            if contact.first_name == new_first_name:
+                print("Name already exists!")
+                return
+        self.address_book.append(new_contact)
 
     def edit_contact(self, person_to_edit, updated_contact):
         """
@@ -34,6 +40,8 @@ class AddressBook:
         :return: object as string
         """
         string = ''
+        if len(self.address_book) < 1:
+            return "Nothing to show here!"
         for i in range(len(self.address_book)):
             contact = self.address_book[i]
             string += "Contact {}: {}\n".format(i + 1, contact)
@@ -49,6 +57,7 @@ class AddressBook:
             contact = self.address_book[i]
             if contact.first_name == person_to_delete:
                 self.address_book.remove(contact)
+                return
 
     def search_person_by_state(self, state_to_search):
         """
