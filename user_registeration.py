@@ -1,7 +1,13 @@
 import re
 
+from custom_user_registeration_errors import UserRegisterationError
+
 
 def test_regex_pattern(pattern, source):
+    if source is None:
+        raise UserRegisterationError("Invalid input")
+    if source == "":
+        raise UserRegisterationError("Empty string passed")
     if re.fullmatch(pattern, source):
         return True
     else:
