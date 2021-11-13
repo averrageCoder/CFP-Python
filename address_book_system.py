@@ -53,11 +53,9 @@ class AddressBook:
         :param person_to_delete: name of the person that needs to be deleted
         :return: none
         """
-        for i in range(len(self.address_book)):
-            contact = self.address_book[i]
-            if contact.first_name == person_to_delete:
-                self.address_book.remove(contact)
-                return
+        contact_to_delete = [contact for contact in self.address_book if contact.first_name == person_to_delete]
+        if contact_to_delete:
+            self.address_book.remove(contact_to_delete[0])
 
     def search_person_by_state(self, state_to_search):
         """
@@ -65,10 +63,8 @@ class AddressBook:
         :param state_to_search: state name to search by
         :return:
         """
-        for i in range(len(self.address_book)):
-            contact = self.address_book[i]
-            if contact.state == state_to_search:
-                print(contact)
+        person_by_state = filter(lambda x: x.state == state_to_search, self.address_book)
+        return person_by_state
 
     def search_person_by_city(self, city_to_search):
         """
@@ -76,10 +72,8 @@ class AddressBook:
         :param city_to_search: city name to search by
         :return:
         """
-        for i in range(len(self.address_book)):
-            contact = self.address_book[i]
-            if contact.city == city_to_search:
-                print(contact)
+        person_by_city = filter(lambda x: x.city == city_to_search, self.address_book)
+        return person_by_city
 
     def map_city_and_person(self):
         """
