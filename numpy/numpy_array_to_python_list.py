@@ -9,7 +9,8 @@ Print array values with precision 3:
 import numpy as np
 
 # 1d array to list
-arr = np.array([0.26153123, 0.52760141, 0.5718299, 0.5927067, 0.7831874, 0.69746349, 0.35399976, 0.99469633, 0.0694458, 0.54711478])
+arr = np.array([0.26153123, 0.52760141, 0.5718299, 0.5927067, 0.7831874, 0.69746349, 0.35399976, 0.99469633, 0.0694458,
+                0.54711478])
 print(f'NumPy Array:\n{arr}')
 
 list1 = arr.astype(float).round(3).tolist()
