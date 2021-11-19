@@ -1,4 +1,7 @@
+import re
+
 from custom_exceptions import ContactCustomException
+
 
 class UserDetails:
     def __init__(self, *params):
@@ -16,6 +19,9 @@ class UserDetails:
         print("setter called")
         if value is None:
             raise ContactCustomException("Name cannot be none!")
+        if re.fullmatch("^[A-Z]{1}[a-z]{2,}$", value):
+            raise ContactCustomException("Name should have atleast 2 characters and should start with uppercase")
+
         self._first_name = value
 
     @property
@@ -29,12 +35,12 @@ class UserDetails:
         self._last = value
 
     def __str__(self):
-        return self.first_name+"__"+self.last_name
+        return self.first_name + "__" + self.last_name
 
 
 user1 = UserDetails(("Draco", "Malfoy"))
 try:
-    user1.first_name = None
+    user1.first_name = "Nope"
     print(user1)
 except ContactCustomException as exception:
     print(exception.__str__())
