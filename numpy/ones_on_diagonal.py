@@ -7,6 +7,6 @@ Expected Output:
 """
 import numpy as np
 
-diagonal_matrix = np.eye(3, dtype=float)
+diagonal_matrix = np.eye(5, dtype=float)
 
 print(diagonal_matrix)
