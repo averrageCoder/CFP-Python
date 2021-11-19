@@ -106,7 +106,7 @@ print(df)
 18. Write a Python program to sort the DataFrame first by 'name' in descending order, then by 'score' in ascending 
 order. 
 """
-df.sort_values(by=['name', 'score'], ascending=[False, True])
+df = df.sort_values(by=['name', 'score'], ascending=[False, True])
 print("Sort the data frame first by ‘name’ in descending order, then by ‘score’ in ascending order:")
 print(df)
 
