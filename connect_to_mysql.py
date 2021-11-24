@@ -18,7 +18,6 @@ def get_connection(HOST, USERNAME, PASSWORD, DATABASE):
             password=PASSWORD,
             database=DATABASE,
         )
-        print("Connection successful!")
         return connection
     except Error as e:
         print(e)
