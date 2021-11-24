@@ -41,3 +41,16 @@ create_reviewers_table_query = """
         last_name VARCHAR(100)
     )
 """
+
+# id,author,title,image,quantity,price,description
+create_books_table_query = """
+    CREATE TABLE if not exists books (
+        id INT,
+        author VARCHAR(100),
+        title VARCHAR(100),
+        image VARCHAR(100),
+        quantity INT,
+        price NUMERIC,
+        description TEXT
+    )
+"""
