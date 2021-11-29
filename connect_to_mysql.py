@@ -11,14 +11,10 @@ def get_connection(HOST, USERNAME, PASSWORD, DATABASE):
     :param DATABASE: database to be used
     :return:
     """
-    try:
-        connection = connect(
-            host=HOST,
-            user=USERNAME,
-            password=PASSWORD,
-            database=DATABASE,
-        )
-        return connection
-    except Error as e:
-        print(e)
-        return None
+    connection = connect(
+        host=HOST,
+        user=USERNAME,
+        password=PASSWORD,
+        database=DATABASE,
+    )
+    return connection

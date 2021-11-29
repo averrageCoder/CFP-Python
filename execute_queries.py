@@ -2,10 +2,13 @@ from connect_to_mysql import get_connection
 from dotenv import dotenv_values
 import pandas as pd
 import logging
-logging.basicConfig(filename='mysql.log', filemode='a', level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
+
+logging.basicConfig(filename='mysql.log', filemode='a', level=logging.DEBUG, format='%(asctime)s %(message)s',
+                    datefmt='%d/%m/%Y %I:%M:%S %p')
 
 from sql_queries import create_movies_table_query, create_reviewers_table_query, create_ratings_table_query, \
-    insert_reviewers_query, show_table_query, create_books_table_query
+    insert_reviewers_query, show_table_query, create_books_table_query, insert_movies_query, insert_ratings_query, \
+    select_query_with_join, update_query, delete_query
 
 config = dotenv_values(".env")
 HOST = config["HOST"]
@@ -19,11 +22,11 @@ class MySQLUtil:
         try:
             self.connection = get_connection(HOST, USERNAME, PASSWORD, DATABASE)
             logging.info("Database connection successful!")
+            self.cursor = self.connection.cursor()
         except Exception as e:
             logging.error(str(e))
-        self.cursor = self.connection.cursor()
 
-    def execute_query(self, query, values = None):
+    def execute_query(self, query, values=None):
         """
         to execute query to database
         :param query: sql query to be executed
@@ -37,7 +40,7 @@ class MySQLUtil:
             self.connection.commit()
         except Exception as e:
             logging.error("{} for query '{}' values '{}'".format(str(e), query, values))
-
+            self.connection.rollback()
 
     def executemany_query(self, query, values):
         """
@@ -76,7 +79,8 @@ class MySQLUtil:
         :return:
         """
         df = pd.read_csv(csvfile)
-        # logging.debug(df.info())
+        df.fillna(0, inplace=True)
+        logging.debug(df.info())
         columns = df.columns.values.tolist()
         all_rows = []
 
@@ -91,9 +95,9 @@ class MySQLUtil:
         for index, row in df.iterrows():
             row_value = ()
             for column in columns:
-                if pd.isna( row[column]):
-                    row[column] = 'NULL'
-                row_value += (row[column], )
+                # if pd.isna(row[column]):
+                #     row[column] = None
+                row_value += (row[column],)
             all_rows.append(row_value)
             query = "insert into {}({}) values({})".format(table_name, columns_str, value_format_specifier)
             # print(query)
@@ -117,10 +121,19 @@ if __name__ == "__main__":
     mysql_util.execute_query(create_reviewers_table_query)
     mysql_util.execute_query(create_ratings_table_query)
     mysql_util.execute_query(create_books_table_query)
-    result = mysql_util.execute_and_fetch_query(show_table_query)
-    for row in result:
-        print(row)
-    mysql_util.executemany_query(insert_reviewers_query["query"], insert_reviewers_query["values"])
+    mysql_util.execute_query(update_query)
+    mysql_util.execute_query(delete_query)
+    # result = mysql_util.execute_and_fetch_query(show_table_query)
+    # for row in result:
+    #     print(row)
+
+    # mysql_util.execute_query(insert_movies_query)
+    # mysql_util.executemany_query(insert_reviewers_query["query"], insert_reviewers_query["values"])
+    # mysql_util.executemany_query(insert_ratings_query["query"], insert_ratings_query["values"])
     # mysql_util.read_csv_and_insert_to_db("reviewers_data.csv", "reviewers")
     mysql_util.read_csv_and_insert_to_db("book.csv", "books")
+    result = mysql_util.execute_and_fetch_query(select_query_with_join)
+    for row in result:
+        print(row)
+
     mysql_util.close_connection()
