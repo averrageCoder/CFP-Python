@@ -8,7 +8,7 @@ def get_connection(HOST, USERNAME, PASSWORD, DATABASE):
     :param USERNAME:  username to use in the database
     :param PASSWORD: password for the username
     :param DATABASE: database to be used
-    :return:
+    :return: connection
     """
     connection = connect(
         host=HOST,

@@ -1,19 +1,27 @@
 import logging
 import pandas as pd
+from dotenv import dotenv_values
+
 from connect_to_mysql import get_connection
 
 logging.basicConfig(filename='mysql.log', filemode='a', level=logging.DEBUG, format='%(asctime)s %(message)s',
                     datefmt='%d/%m/%Y %I:%M:%S %p')
 
+config = dotenv_values(".env")
+HOST = config["HOST"]
+USERNAME = config['USERNAME']
+PASSWORD = config['PASSWORD']
+DATABASE = config['DATABASE']
 
 class MySQLUtil:
-    def __init__(self, HOST, USERNAME, PASSWORD, DATABASE):
+    def __init__(self):
         try:
             self.connection = get_connection(HOST, USERNAME, PASSWORD, DATABASE)
             logging.info("Database connection successful!")
             self.cursor = self.connection.cursor()
         except Exception as e:
             logging.error(str(e))
+            raise e
 
     def execute_query(self, query, values=None):
         """
@@ -31,6 +39,7 @@ class MySQLUtil:
         except Exception as e:
             logging.error("{} for query '{}' values '{}'".format(str(e), query, values))
             self.connection.rollback()
+            raise e
 
     def executemany_query(self, query, values):
         """
@@ -45,6 +54,7 @@ class MySQLUtil:
         except Exception as e:
             logging.error("{} for query '{}'".format(str(e), query))
             self.connection.rollback()
+            raise e
 
     def execute_and_fetch_query(self, query):
         """
@@ -60,16 +70,17 @@ class MySQLUtil:
         except Exception as e:
             logging.error("{} for query '{}'".format(str(e), query))
             self.connection.rollback()
-            return None, None
+            raise e
 
-    def read_csv_and_insert_to_db(self, csvfile, table_name):
+    def read_csv_and_insert_to_db(self, df, table_name):
         """
         to read csv and insert to db
         :param csvfile: path of csv file
         :param table_name: name of the table to be inserted into
         :return:
         """
-        df = pd.read_csv(csvfile)
+        # df = pd.read_csv(csvfile)
+        df.drop('id', axis=1, inplace=True)
         df.fillna(0, inplace=True)
         logging.debug(df.info())
         columns = df.columns.values.tolist()
@@ -104,3 +115,4 @@ class MySQLUtil:
         except Exception as e:
             self.connection.rollback()
             logging.error(str(e))
+            raise e

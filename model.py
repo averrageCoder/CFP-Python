@@ -2,7 +2,9 @@ from pydantic import BaseModel
 
 
 class Book(BaseModel):
-    id: int
+    """
+    Class for book table
+    """
     author: str
     title: str
     image: str
