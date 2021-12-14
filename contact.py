@@ -1,3 +1,4 @@
+from custom_address_book_error import AddressBookSystemError
 class Contact:
     def __init__(self, first_name, last_name, address, city, state, zip_code, phone, email):
         """
@@ -28,6 +29,8 @@ class Contact:
     # a setter function
     @first_name.setter
     def first_name(self, first_name):
+        if not first_name:
+            raise AddressBookSystemError('Invalid first name')
         self._first_name = first_name
 
     @property
@@ -37,6 +40,8 @@ class Contact:
     # a setter function
     @last_name.setter
     def last_name(self, last_name):
+        if not last_name or last_name.strip() == "":
+            raise AddressBookSystemError('Invalid last name')
         self._last_name = last_name
 
     @property
@@ -55,6 +60,8 @@ class Contact:
     # a setter function
     @city.setter
     def city(self, city):
+        if not city or city.strip() == "":
+            raise AddressBookSystemError('Invalid city')
         self._city = city
 
     # a getter function
@@ -65,6 +72,8 @@ class Contact:
     # a setter function
     @state.setter
     def state(self, state):
+        if not state or state.strip() == "":
+            raise AddressBookSystemError('Invalid state')
         self._state = state
 
     @property

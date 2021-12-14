@@ -1,6 +1,8 @@
 from contact import Contact
 import json
 
+from custom_address_book_error import AddressBookSystemError
+
 address_book = []
 
 
@@ -29,10 +31,14 @@ class AddressBook:
         :param updated_contact: updated contact that needs to replaced
         :return: none
         """
+        flag = False
         for i in range(len(self.address_book)):
             contact = self.address_book[i]
             if contact.first_name == person_to_edit:
+                flag = True
                 self.address_book[i] = updated_contact
+        if not flag:
+            raise AddressBookSystemError('Name not found!')
 
     def __str__(self):
         """
@@ -53,9 +59,14 @@ class AddressBook:
         :param person_to_delete: name of the person that needs to be deleted
         :return: none
         """
+        flag = False
         contact_to_delete = [contact for contact in self.address_book if contact.first_name == person_to_delete]
         if contact_to_delete:
+            flag = True
             self.address_book.remove(contact_to_delete[0])
+        if not flag:
+            raise AddressBookSystemError('Cannot delete! Name doesnt exist!')
+
 
     def search_person_by_state(self, state_to_search):
         """
